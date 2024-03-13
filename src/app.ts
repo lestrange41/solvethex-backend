@@ -2,6 +2,7 @@ import express, { Application } from "express"
 import morgan from 'morgan'
 import IndexRoutes from './routes/index.routes'
 import PostRoutes from './routes/post.routes'
+import UserRoutes from './routes/user.routes'
 
 export class App {
 
@@ -26,7 +27,8 @@ middlewares() {
 
 routes() {
     this.app.use(IndexRoutes)
-    this.app.use('/posts', PostRoutes)
+    this.app.use('/posts', PostRoutes) //post
+    this.app.use('/users', UserRoutes) //usuarios
 }
 async listen() {
 

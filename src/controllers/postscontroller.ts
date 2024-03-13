@@ -38,6 +38,7 @@ export async function deletePost(req:Request,res:Response) {
      })
  }
  
+ //hacemos el update de el post
  export async function updatePost(req:Request,res:Response){
     const id = req.params.postId
     const updatePost: Post = req.body
