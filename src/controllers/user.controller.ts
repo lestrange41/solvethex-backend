@@ -16,7 +16,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
 }
 
 //encontrar todos los usuarios
-export async function getUsers(req: Request, res: Response): Promise<Response> {
+export async function getAllUsers(req: Request, res: Response): Promise<Response> {
     try {
         const conn = await connect();
         const users = await conn.query('SELECT * FROM users');
@@ -26,6 +26,7 @@ export async function getUsers(req: Request, res: Response): Promise<Response> {
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
+
 
 
 //encontrar un usuario por el id

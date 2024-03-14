@@ -3,7 +3,7 @@ import morgan from 'morgan'
 import IndexRoutes from './routes/index.routes'
 import PostRoutes from './routes/post.routes'
 import UserRoutes from './routes/user.routes'
-
+import cors from 'cors'
 export class App {
 
 private app: Application
@@ -22,7 +22,11 @@ setting() {
 middlewares() {
     this.app.use(morgan('dev'))
     this.app.use(express.json())
-
+    this.app.use(cors({
+        origin: 'http://localhost:5173',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+        allowedHeaders: ['Content-Type']
+    }))
 }
 
 routes() {
