@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { connect } from '../database';
 import { User } from '../interface/User.interface';
-
+import jwt from 'jsonwebtoken';
 //crear usuario
 export async function createUser(req: Request, res: Response): Promise<Response> {
     try {
@@ -67,3 +67,49 @@ export async function deleteUser(req: Request, res: Response): Promise<Response>
         return res.status(500).json({ message: 'Internal server error' });
     }
 }
+
+//loggin 
+export async function loginUser(req: Request, res: Response): Promise<Response> {
+    try {
+        const { email, password } = req.body;
+
+        // Verifica si el correo electrónico y la contraseña están presentes en la solicitud
+        if (!email || !password) {
+            return res.status(400).json({ message: 'Correo electrónico y contraseña son obligatorios' });
+        }
+
+        // Consulta el usuario en la base de datos por su correo electrónico
+        const conn = await connect();
+        const [rows] = await conn.query('SELECT id, email, password FROM users WHERE email = ?', [email]);
+
+        // Verifica que rows sea un array y tenga al menos un elemento
+        if (!Array.isArray(rows) || rows.length === 0) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        // Verifica que la primera fila de rows tenga la estructura esperada
+        const user = rows[0] as { id: number, email: string, password: string };
+
+        // Comprueba si user es null o indefinido
+        if (!user) {
+            return res.status(404).json({ message: 'Usuario no encontrado' });
+        }
+
+        // Compara la contraseña proporcionada con la contraseña almacenada en la base de datos
+        const passwordMatch = await password == user.password;
+
+        // Si las contraseñas no coinciden
+        if (!passwordMatch) {
+            return res.status(401).json({ message: 'Credenciales incorrectas' ,password,user});
+        }
+
+        // Genera un token de autenticación
+        const token = jwt.sign({ id: user.id, email: user.email }, 'secret_key', { expiresIn: '1h' });
+
+        return res.json({ token });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: 'Error interno del servidor' });
+    }
+}
+
