@@ -12,5 +12,12 @@ npm run dev
 _____________________
 
 Iniciar sesión en la pestanya ACCEDER con uno de los 3 usuarios.
+1. email: alexa@gmail.com
+   contraseña: hola
+1. email: josep@gmail.com
+   contraseña: hola
+1. email: maria@gmail.com
+   contraseña: hola
+   
 
 Listo para añadir libros a la libreria, editarlos y borrarlos.
