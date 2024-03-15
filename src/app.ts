@@ -1,7 +1,7 @@
 import express, { Application } from "express"
 import morgan from 'morgan'
 import IndexRoutes from './routes/index.routes'
-import PostRoutes from './routes/post.routes'
+import PostRoutes from './routes/books.routes'
 import UserRoutes from './routes/user.routes'
 import LoginRoutes from './routes/login.routes'
 import cors from 'cors'
@@ -32,7 +32,7 @@ middlewares() {
 
 routes() {
     this.app.use(IndexRoutes)
-    this.app.use('/posts', PostRoutes) //post
+    this.app.use('/book', PostRoutes) //libro
     this.app.use('/users', UserRoutes) //usuarios
     this.app.use('/login', LoginRoutes) //login
 }
