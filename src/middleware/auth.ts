@@ -15,12 +15,12 @@ export async function login(req: Request, res: Response) {
 
         const user = rows[0];
 
-        // Verifica la contraseña del usuario
+        
         if (user.password !== password) {
             return res.status(401).json({ message: 'Email or password incorrect' });
         }
 
-        // Genera un token JWT para el usuario
+        
         const token = generateToken(user);
 
         return res.json({ token });

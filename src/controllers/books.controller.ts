@@ -3,7 +3,7 @@ import { connect } from '../database'
 import {Book} from '../interface/Book.interface'
 
 
-//recibimos todos los posts
+
 export async function getBooks(req:Request,res:Response): Promise<Response> {
 
     try {
@@ -16,7 +16,7 @@ export async function getBooks(req:Request,res:Response): Promise<Response> {
     }
 }
 
-//creamos un post
+
 export async function createBook(req:Request,res:Response) {
     const newBook: Book = req.body
     const conn = await connect()
@@ -26,7 +26,7 @@ export async function createBook(req:Request,res:Response) {
         message: 'El libro ha sido añadido correctamente'
     })
 }
-//recibimos un post según el id que queramos
+
 export async function getBook(req:Request,res:Response): Promise<Response> {
    const id = req.params.bookId
    const conn = await connect()
@@ -34,7 +34,7 @@ export async function getBook(req:Request,res:Response): Promise<Response> {
     return res.json(books[0])
 }
 
-//borrar post con el id del usuario
+
 export async function deleteBook(req:Request,res:Response) {
     const id = req.params.bookId
     const conn = await connect()
@@ -44,7 +44,7 @@ export async function deleteBook(req:Request,res:Response) {
      })
  }
  
- //hacemos el update de el post
+
  export async function updateBook(req:Request,res:Response){
     const id = req.params.bookId
     const updateBook: Book = req.body
